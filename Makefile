@@ -20,11 +20,21 @@ pod: clean
 
 build: pod
 	cd Pods && xcodebuild -configuration Release -target $(shell head -n 1 build_target_name.txt)
+	mv $(shell head -n 1 product_path.txt) $(shell head -n 1 product_path.txt)-ios
+	cd Pods && xcodebuild -configuration Release -sdk iphonesimulator7.1 -target $(shell head -n 1 build_target_name.txt)
+	mv $(shell head -n 1 product_path.txt) $(shell head -n 1 product_path.txt)-sim
+	lipo -create $(shell head -n 1 product_path.txt)-ios $(shell head -n 1 product_path.txt)-sim -output $(shell head -n 1 product_path.txt)
+	rm $(shell head -n 1 product_path.txt)-ios
+	rm $(shell head -n 1 product_path.txt)-sim
+
+build-ios: pod
+	cd Pods && xcodebuild -configuration Release -target $(shell head -n 1 build_target_name.txt)
 
 build-sim: pod
-	cd Pods && xcodebuild -configuration Debug -sdk iphonesimulator7.1 -target $(shell head -n 1 build_target_name.txt)
+	cd Pods && xcodebuild -configuration Release -sdk iphonesimulator7.1 -target $(shell head -n 1 build_target_name.txt)
 
 clean:
 	-rm -rf Pods
 	-rm Podfile.lock
 	-rm build_target_name.txt
+	-rm product_path.txt

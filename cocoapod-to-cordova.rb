@@ -128,6 +128,9 @@ class CocoapodToCordovaBuilder
       shell_phase.show_env_vars_in_log = "0"
       shell_phase.shell_script = "mv #{copy_to_product_path} #{new_product_path}"
     end
+    File.open('product_path.txt', 'w') do |f|
+      f.puts new_product_path
+    end
   end
 
   def include_headers(options = {})
