@@ -1,8 +1,8 @@
-platform :ios, '6.0'
+platform :ios, 'IOS_VERSION'
 pod 'POD_NAME', 'POD_VERSION'
 
 post_install do |installer|
-  require './build-plugman-cocoapod'
+  require './cocoapod-to-cordova'
 
   # POD_NAME must be the exact same string as specified above
   build = CocoapodToCordovaBuilder.new('POD_NAME', installer.project)
@@ -21,5 +21,5 @@ post_install do |installer|
   })
 
   # Apply the additional build settings to the xcode_project
-  build.update_xcode_project!
+  build.update_plugin!
 end
