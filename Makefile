@@ -19,9 +19,9 @@ pod: clean
 	pod install --no-integrate
 
 build: pod
-	cd Pods && xcodebuild -configuration Release -target $(shell head -n 1 build_target_name.txt)
-	mv $(shell head -n 1 product_path.txt) $(shell head -n 1 product_path.txt)-ios
-	cd Pods && xcodebuild -configuration Release -sdk iphonesimulator7.1 -target $(shell head -n 1 build_target_name.txt)
+        cd Pods && xcodebuild -configuration Release -sdk iphoneos -target $(shell head -n 1 build_target_name.txt)
+        mv $(shell head -n 1 product_path.txt) $(shell head -n 1 product_path.txt)-ios
+        cd Pods && xcodebuild -configuration Release -sdk iphonesimulator -target $(shell head -n 1 build_target_name.txt)
 	mv $(shell head -n 1 product_path.txt) $(shell head -n 1 product_path.txt)-sim
 	lipo -create $(shell head -n 1 product_path.txt)-ios $(shell head -n 1 product_path.txt)-sim -output $(shell head -n 1 product_path.txt)
 	rm $(shell head -n 1 product_path.txt)-ios
