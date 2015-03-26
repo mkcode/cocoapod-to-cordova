@@ -172,11 +172,14 @@ class CocoapodToCordovaBuilder
     options[:sub_dir] ||= 'resources'
     options[:localization] ||= 'en'
     excluded_files = options[:exclude] || []
-    resource_files = target.project.pod_group(@pod_name)
+    resource_group = target.project.pod_group(@pod_name)
                                    .groups
                                    .find{|g| g.display_name == "Resources"}
-                                   .files
-                                   .reject{|f| excluded_files.include?(f.display_name)}
+    resource_files = []
+    if resource_group
+      resource_files = resource_group.files
+                                     .reject{|f| excluded_files.include?(f.display_name)}
+    end
     if copy_files?(options)
       copy_resources = create_new_copy_files_build_phase(File.join(dst_path, options[:sub_dir]))
     end
