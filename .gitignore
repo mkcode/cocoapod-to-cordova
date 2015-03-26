@@ -1,0 +1,5 @@
+Pods/
+build/
+Podfile.lock
+build_target_name.txt
+product_path.txt
