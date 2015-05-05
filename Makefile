@@ -1,7 +1,7 @@
 # Makefile for building and updating a cordova plugin from a cocoapod spec.
 #
 # You need to first configure your podfile.
-# See the docutmention at:
+# See the documentation at:
 #   http://github.com/mkcode/cocoapod-to-cordova.git
 #
 # Targets:
